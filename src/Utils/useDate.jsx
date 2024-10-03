@@ -14,18 +14,13 @@ export const useDate = () => {
     };
   }, []);
 
-  const day = today.toLocaleDateString(locale, { weekday: "long" });
-  const date = `${day}, ${today.getDate()}, ${today.toLocaleDateString(locale, {
-    month: "long",
-  })}\n\n`;
-  const time = today.toLocaleDateString(locale, {
+  const time = today.toLocaleTimeString(locale, {
     hour: "numeric",
     hour12: true,
     minute: "numeric",
   });
 
   return {
-    date,
     time,
   };
 };
