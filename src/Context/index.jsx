@@ -1,5 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import axios from "axios";
+import Alert from "../components/Alert"; // Import the alert component
 
 const StateContext = createContext();
 
@@ -8,6 +9,7 @@ export const StateContextProvider = ({ children }) => {
   const [values, setValues] = useState([]);
   const [place, setPlace] = useState("Cairo");
   const [thisLocation, setLocation] = useState("");
+  const [error, setError] = useState(""); // State to store error message
 
   // fetch api
   const fetchWeather = async () => {
@@ -37,7 +39,8 @@ export const StateContextProvider = ({ children }) => {
     } catch (e) {
       console.error(e);
       // if the api throws error.
-      alert("This place does not exist");
+      //   alert("This place does not exist");
+      setError("This place does not exist. Please try another location.");
     }
   };
 
@@ -59,6 +62,8 @@ export const StateContextProvider = ({ children }) => {
         place,
       }}
     >
+      {error && <Alert message={error} onClose={() => setError("")} />}
+
       {children}
     </StateContext.Provider>
   );
